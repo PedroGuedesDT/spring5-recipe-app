@@ -4,10 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
+
+
+
+
+
+
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,7 +44,7 @@ public class Recipe implements Serializable {
     private Difficulty difficulty;
 
     @Lob
-    private Byte[] image;
+    private Byte[] image = new Byte[0];
 
     //recipe owns notes - we want to delete the note when we delete a recipe - so we do cascade all
     @OneToOne(cascade = CascadeType.ALL)
@@ -40,11 +52,15 @@ public class Recipe implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
+    @CreationTimestamp
+    private LocalDate creationDate;
 
+    @UpdateTimestamp
+    private LocalDate updateDate;
 
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/font-awesome/6.5.1/js/all.min.js}"></script>
+    <title>Recipes</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/6.5.1/css/all.min.css}" />
+</head>
+<body>
+    <h1>Recipes</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Link</th>
+                <th>Description</th>
+                <th>Servings</th>
+                <th>Difficulty</th>
+                <th>Preparation Time</th>
+                <th>Cook Time</th>
+                <th>Total Time</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="recipe : ${recipes}">
+                <td><a th:href="${recipe.url}"><i class="fa-solid fa-link"></i></a></td>
+                <td th:text="${recipe.description}"></td>
+                <td th:text="${recipe.servings + ' servings'}"></td>
+                <td th:text="${recipe.difficulty}"></td>
+                <td th:text="${recipe.prepTime + ' minutes'}"></td>
+                <td th:text="${recipe.cookTime + ' minutes'}"></td>
+                <td th:text="${(recipe.prepTime + recipe.cookTime) + ' minutes'}"></td>
+                <td th:each="category : ${recipe.categories}">
+                    <span class="text-uppercase font-weight-bold" th:text="${category.description + ' '}"></span>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</body>
+</html>

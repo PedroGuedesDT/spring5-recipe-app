@@ -11,6 +11,4 @@ public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, L
 
     Optional<UnitOfMeasure> findByDescription(String description);
 
-    Set<UnitOfMeasure> findAllByDescription(String description);
-
 }

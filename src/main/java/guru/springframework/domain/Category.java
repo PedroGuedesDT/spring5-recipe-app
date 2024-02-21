@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -23,5 +24,5 @@ public class Category implements Serializable {
     private String description;
 
     @ManyToMany(mappedBy = "categories")
-    private Set<Recipe> recipes;
+    private Set<Recipe> recipes = new HashSet<>();
 }
